@@ -1,0 +1,7 @@
+[package]
+name = "git-credential-docker-store"
+version = "0.1.0"
+authors = ["starekp"]
+
+[dependencies]
+clap = "*"
