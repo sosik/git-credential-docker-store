@@ -13,15 +13,22 @@ fn main() {
                 .takes_value(true),
         )
         .subcommand(clap::SubCommand::with_name("get").about("get credentials"))
+        .subcommand(clap::SubCommand::with_name("store").about("store credentials - silently dropped"))
         .get_matches();
 
     let file_name = params.value_of("file").unwrap_or("./.git-credentials");
 
-    match cmdget::execute(file_name) {
-        Ok(s) => println!("{}", s),
-        Err(e) => println!("{}", e),
-    };
-
+	match params.subcommand_name() {
+		Some("get") => {
+			match cmdget::execute(file_name) {
+				Ok(s) => println!("{}", s),
+				Err(e) => println!("{}", e),
+			};
+		},
+		_ => {
+			// silently drop
+		}
+	}
     // git exptects empty line at the end
     println!("")
 }
